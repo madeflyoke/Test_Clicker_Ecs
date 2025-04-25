@@ -14,7 +14,9 @@ namespace Core.UI.Gameplay.Business
         [field: SerializeField] public TMP_Text IncomeValueText { get; private set; }
         [field: SerializeField] public TMP_Text PriceText { get; private set; }
         [field: SerializeField] public Button UpgradeButton { get; private set; }
-        [field: SerializeField] public GameObject BoughtObj { get; private set; }
+        
+        [SerializeField] private GameObject _pricePartObj;
+        [SerializeField] public GameObject _boughtTitleObj;
         private Action _onClick;
 
         public void SetupClickAction(Action clickAction)
@@ -47,6 +49,8 @@ namespace Core.UI.Gameplay.Business
         public void OnNotifyTriggered()
         {
             UpgradeButton.enabled = false;
+            _boughtTitleObj.SetActive(true);
+            _pricePartObj.SetActive(false);
         }
     }
 }
