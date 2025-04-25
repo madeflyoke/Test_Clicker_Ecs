@@ -1,6 +1,6 @@
 namespace Core.Currency.Components
 {
-    public struct MoneyCurrencyComponent
+    public struct MoneyInfoComponent
     {
         public double Value;
     }

@@ -1,3 +1,6 @@
+using Core.Business.Components.Events;
+using Core.Common.Components.Events;
+using Core.Currency.Components;
 using Core.Currency.Components.Events;
 using Core.Services.PlayerData;
 using Core.Services.PlayerData.Currency;
@@ -13,14 +16,13 @@ namespace Core.Currency.Systems
         private EcsCustomInject<PlayerDataService> _playerDataService;
         
         private EcsFilterInject<Inc<MoneyCurrencyChangedRequestComponent>> _moneyCurrencyFilter;
-        private EcsPoolInject<MoneyCurrencyChangedRequestComponent> _moneyRequestsPool;
-
+        private EcsPoolInject<NotifyValueChangedComponent<MoneyInfoComponent>> _notifiers;
+        
         private MoneyCurrencyModelMediator _moneyCurrencyModelMediator;
         
         public void Init(IEcsSystems systems)
         {
             _moneyCurrencyModelMediator = _playerDataService.Value.MoneyCurrencyMediator;
-            systems.GetWorld().GetPool<NotifyMoneyCurrencyChangedComponent>().Add(systems.GetWorld().NewEntity()).Value = _moneyCurrencyModelMediator.GetValue();
         }
         
         public void Run(IEcsSystems systems)
@@ -30,7 +32,7 @@ namespace Core.Currency.Systems
             
             foreach (var entity in _moneyCurrencyFilter.Value)
             {
-                ref var requestComponent = ref _moneyRequestsPool.Value.Get(entity);
+                ref var requestComponent = ref _moneyCurrencyFilter.Pools.Inc1.Get(entity);
                 var requestValue = requestComponent.Value;
 
                 if (requestValue!=0)
@@ -52,10 +54,18 @@ namespace Core.Currency.Systems
                 }
                 
                 _moneyCurrencyModelMediator.Operate(result, OperationType.Set);
+                
+                if (changed)
+                {
+                    Notify(entity, _moneyCurrencyModelMediator.GetValue());
+                }
             }
-               
-            if (changed)
-               systems.GetWorld().GetPool<NotifyMoneyCurrencyChangedComponent>().Add(systems.GetWorld().NewEntity()).Value = result;
+        }
+        
+        private void Notify(int target, double value)
+        {
+            ref var notifier = ref _notifiers.Value.Add(target);
+            notifier.ValueSource.Value = value;
         }
     }
 }
