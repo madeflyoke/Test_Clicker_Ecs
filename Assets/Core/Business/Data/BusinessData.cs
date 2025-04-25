@@ -10,5 +10,6 @@ namespace Core.Business.Data
         public double BasePrice;
         public int BaseIncome;
         public List<UpgradeData> Upgrades;
+        public bool PreOpened;
     }
 }

@@ -14,5 +14,10 @@ namespace Core.Business.Data
         {
             return _businessData[businessType];
         }
+        
+        public Dictionary<BusinessType, BusinessData> GetAllBusinessData()
+        {
+            return _businessData;
+        }
     }
 }

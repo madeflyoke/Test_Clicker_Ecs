@@ -1,12 +1,18 @@
+using System.Collections.Generic;
+using System.Linq;
+using Core.Business.Components;
+using Core.Business.Components.Events;
+using Core.Business.Systems;
+using Core.Business.Systems.Notify;
+using Core.Common.Components.Events;
+using Core.Currency.Components;
 using Core.Currency.Components.Events;
 using Core.Currency.Systems;
-using Core.Services.Configs;
-using Core.Services.PlayerData;
+using Core.Interfaces;
+using Core.Services;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.ExtendedSystems;
-using Packages.LeoEcs.LeoEcsDebug.Runtime;
-using Packages.LeoEcs.VoodyConversion.MonoHelpers;
 using UnityEngine;
 
 namespace Core
@@ -15,33 +21,62 @@ namespace Core
     {
         private EcsWorld _defaultWorld;
         private EcsSystems _systems;
+
+        private List<IEcsInitialized> _registers;
         
         private bool _initialized;
 
-        public void Initialize(PlayerDataService playerDataService, GameDataProviderService gameDataProviderService)
+        public void Initialize(ServicesProvider servicesProvider, params IEcsInitialized[] optionalRegisters)
         {
             _defaultWorld = new EcsWorld();
             _systems = new EcsSystems(_defaultWorld);
-            
+
+            InitializeRegisters(optionalRegisters.ToList());
+
             AddSystems();
-            _systems.ConvertScene();
+            
             _systems.Inject(
-                playerDataService, 
-                gameDataProviderService);
+                servicesProvider.PlayerDataService, 
+                servicesProvider.GameDataProviderService);
             _systems.Init();
             _initialized = true;
+        }
+
+        private void InitializeRegisters(List<IEcsInitialized> registers)
+        {
+            foreach (var r in registers)
+            {
+                r.EcsInitialize(_defaultWorld);
+            }
         }
 
         private void AddSystems()
         {
             _systems
+                .Add(new BusinessLevelUpSystem())
+                .DelHere<BusinessLevelUpRequestComponent>()
+                .Add(new BusinessBuySystem())
+                .DelHere<BusinessBuyRequestComponent>()
+
+                .Add(new MoneyCurrencyIncomeProgressSystem())
+                .Add(new MoneyCurrencyIncomeProgressBarFillSystem())
+
                 .Add(new MoneyCurrencyChangeSystem())
                 .DelHere<MoneyCurrencyChangedRequestComponent>()
-                .Add(new NotifyMoneyCurrencyChangedSystem())
-                .DelHere<NotifyMoneyCurrencyChangedComponent>()
-                
+
+                .Add(new BusinessLevelNotifyListenersSystem())
+                .DelHere<NotifyValueChangedComponent<LevelComponent>>()
+                .Add(new MoneyCurrencyNotifyListenersSystem())
+                .DelHere<NotifyValueChangedComponent<MoneyInfoComponent>>()
+                .Add(new MoneyCurrencyProgressBarNotifyListenersSystem())
+                .DelHere<NotifyValueChangedComponent<MoneyCurrencyProgressBarComponent>>()
+                .DelHere<NotifyFullRefreshComponent>();
+
+#if CUSTOM_DEBUG
+            _systems
                 .Add(new EcsSystemsDebugSystem())
                 .Add(new EcsWorldDebugSystem());
+#endif
         }
         
         private void Update()
