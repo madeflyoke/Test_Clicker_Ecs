@@ -8,7 +8,7 @@ namespace Core.Services.PlayerData.Business
 {
     public class BusinessModelMediator
     {
-        public event Action OnSaveRequest;
+        public event Action SaveRequestEvent;
         
         private readonly BusinessModel _businessModel;
         private readonly BusinessConfig _businessConfig;
@@ -26,13 +26,13 @@ namespace Core.Services.PlayerData.Business
         public void AddNewBusiness(BusinessType businessType)
         {
             _businessModel.AddData(businessType, new BusinessModelData(){Level = 1});
-            OnSaveRequest?.Invoke();
+            SaveRequestEvent?.Invoke();
         }
         
         public void AddLevel(BusinessType businessType)
         {
             _businessModel.GetData(businessType).Level ++;
-            OnSaveRequest?.Invoke();
+            SaveRequestEvent?.Invoke();
         }
 
         public void AddUpgrade(BusinessType businessType, UpgradeType upgradeType)
@@ -46,7 +46,7 @@ namespace Core.Services.PlayerData.Business
             if (upgrades.Contains(upgradeType)==false)
             {
                 upgrades.Add(upgradeType);
-                OnSaveRequest?.Invoke();
+                SaveRequestEvent?.Invoke();
             }
         }
 
@@ -88,7 +88,7 @@ namespace Core.Services.PlayerData.Business
             {
                 AddNewBusiness(kvp.Key);
             }
-            OnSaveRequest?.Invoke();
+            SaveRequestEvent?.Invoke();
         }
     }
 }

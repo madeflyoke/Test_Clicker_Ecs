@@ -31,7 +31,8 @@ namespace Core.Services.PlayerData
             MoneyCurrencyMediator = new MoneyCurrencyModelMediator(_playerDataContainer.MoneyCurrencyModel);
             BusinessMediator = new BusinessModelMediator(_playerDataContainer.BusinessModel, 
                 servicesProvider.GameDataProviderService.BusinessConfig,newPlayer);
-            BusinessMediator.OnSaveRequest += Save;
+            BusinessMediator.SaveRequestEvent += Save;
+            MoneyCurrencyMediator.SaveRequestEvent += Save;
         }
 
         private void HandleNewPlayer()
@@ -48,7 +49,8 @@ namespace Core.Services.PlayerData
 
         public void Dispose()
         {
-            BusinessMediator.OnSaveRequest -= Save;
+            BusinessMediator.SaveRequestEvent -= Save;
+            MoneyCurrencyMediator.SaveRequestEvent -= Save;
         }
     }
 }

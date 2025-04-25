@@ -5,6 +5,8 @@ namespace Core.Services.PlayerData.Currency
 {
     public class MoneyCurrencyModelMediator
     {
+        public event Action SaveRequestEvent;
+        
         private readonly MoneyCurrencyModel _moneyModel;
 
         public MoneyCurrencyModelMediator(MoneyCurrencyModel moneyModel)
@@ -30,6 +32,7 @@ namespace Core.Services.PlayerData.Currency
 
             result = Math.Clamp(result, 0d, double.MaxValue);
             _moneyModel.Value = result;
+            SaveRequestEvent?.Invoke();
         }
         
         public double GetValue()

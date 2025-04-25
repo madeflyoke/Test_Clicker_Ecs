@@ -211,7 +211,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: -17}
+  m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &235291115
 MonoBehaviour:
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 775095089}
   m_HandleRect: {fileID: 775095088}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1406,7 +1406,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace5d90fac4a5c941b43cf22a1b6ec88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _container: {fileID: 1714408061}
+  _viewRect: {fileID: 1345558510}
+  _container: {fileID: 1714408062}
 --- !u!1 &1294135758
 GameObject:
   m_ObjectHideFlags: 0

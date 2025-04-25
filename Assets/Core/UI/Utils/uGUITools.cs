@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 // Credit Senshi  
 /// Sourced from - http://forum.unity3d.com/threads/scripts-useful-4-6-scripts-collection.264161/ (uGUITools link)
 
@@ -115,3 +117,4 @@ namespace Core.UI.Utils
         }
     }
 }
+#endif

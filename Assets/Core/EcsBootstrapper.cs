@@ -86,12 +86,6 @@ namespace Core
                 .DelHere<NotifyValueChangedComponent<LevelUpPriceComponent>>()
                 
                 .DelHere<NotifyFullRefreshComponent>();
-
-#if CUSTOM_DEBUG
-            _systems
-                .Add(new EcsSystemsDebugSystem())
-                .Add(new EcsWorldDebugSystem());
-#endif
         }
         
         private void Update()

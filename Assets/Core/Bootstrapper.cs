@@ -13,9 +13,9 @@ namespace Core
         [SerializeField] private GameplayEntitiesViewBuilder _gameplayEntitiesViewBuilder;
         private BusinessEntitiesBuilder _entitiesBuilder;
         
-        [Button]
-        public void Initialize()
+        public void Start()
         {
+            Application.targetFrameRate = 60;
             _servicesProvider.Initialize();
             
             _entitiesBuilder = new BusinessEntitiesBuilder(_servicesProvider);
