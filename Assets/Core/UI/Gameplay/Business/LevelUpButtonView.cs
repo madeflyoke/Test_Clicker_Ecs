@@ -1,4 +1,5 @@
 using System;
+using Core.Common.Interfaces;
 using Core.Utils;
 using TMPro;
 using UnityEngine;
@@ -6,16 +7,20 @@ using UnityEngine.UI;
 
 namespace Core.UI.Gameplay.Business
 {
-    public class LevelUpButtonView : MonoBehaviour
+    public class LevelUpButtonView : MonoBehaviour, IValueChangedListener<double>
     {
         [SerializeField] private TMP_Text _levelPriceText;
         [SerializeField] private Button _button;
         private Action _onClick;
         
-        public void Setup(Action onClick, double price)
+        public void SetupClickAction(Action onClick, double price)
         {
             _onClick = onClick;
-            _levelPriceText.text = price.ToIntFloorString().WithDollarPostfix();
+        }
+        
+        public void OnValueChanged(double value)
+        {
+            _levelPriceText.text = value.ToIntFloorString().WithDollarPostfix();
         }
         
         private void OnEnable()

@@ -16,17 +16,20 @@ namespace Core.Services.PlayerData
 
         private PlayerDataContainer _playerDataContainer;
         
-        public PlayerDataService()
+        public PlayerDataService(ServicesProvider servicesProvider)
         {
             _playerDataContainer = JsonSaver.Load<PlayerDataContainer>(PlayerDataKey);
 
+            var newPlayer = false;
             if (_playerDataContainer == null)
             {
                 HandleNewPlayer();
+                newPlayer = true;
             }
 
             MoneyCurrencyMediator = new MoneyCurrencyModelMediator(_playerDataContainer.MoneyCurrencyModel);
-            BusinessMediator = new BusinessModelMediator(_playerDataContainer.BusinessModel);
+            BusinessMediator = new BusinessModelMediator(_playerDataContainer.BusinessModel, 
+                servicesProvider.GameDataProviderService.BusinessConfig,newPlayer);
         }
 
         private void HandleNewPlayer()

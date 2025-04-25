@@ -43,15 +43,14 @@ namespace Core.Factory
             
             var levelPrice = _world.GetPool<LevelUpPriceComponent>().Get(dataEntity).Value;
             
-            view.LevelUpButtonView.Setup(()=>AddPoolComponent<BusinessLevelUpRequestComponent>(dataEntity),
-                levelPrice);
-            
+            view.LevelUpButtonView.SetupClickAction(()=>AddPoolComponent<BusinessLevelUpRequestComponent>(dataEntity),
+                levelPrice); //button handle component?
+            AddPoolComponent<ValueChangedListenerComponent<LevelUpPriceComponent, double>>(dataEntity).Listener =
+                view.LevelUpButtonView;
             AddPoolComponent<ValueChangedListenerComponent<MoneyCurrencyProgressBarComponent, float>>(dataEntity).Listener =
                 view.MoneyCurrencyProgressBar;
-            
             AddPoolComponent<ValueChangedListenerComponent<LevelComponent, int>>(dataEntity).Listener =
                 view.LevelInfoView;
-            
             AddPoolComponent<ValueChangedListenerComponent<IncomeComponent, double>>(dataEntity).Listener =
                 view.IncomeInfoView;
 

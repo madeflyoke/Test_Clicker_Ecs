@@ -5,5 +5,6 @@ namespace Core.Business.Components
     public struct LevelUpPriceComponent
     {
         public double Value;
+        public double BaseValue;
     }
 }

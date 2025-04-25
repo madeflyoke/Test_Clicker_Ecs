@@ -42,8 +42,9 @@ namespace Core.Factory
                 (configData.PreOpened? 1:0);
             
             AddPoolComponent<LevelComponent>(entity).Value = level;
-            AddPoolComponent<LevelUpPriceComponent>(entity).Value =
-                FormulasUtils.CalculateNextLevelPrice(level, configData.BasePrice);
+            ref var levelUpPriceComponent = ref AddPoolComponent<LevelUpPriceComponent>(entity);
+            levelUpPriceComponent.Value=FormulasUtils.CalculateNextLevelPrice(level, configData.BasePrice);
+            levelUpPriceComponent.BaseValue = configData.BasePrice;
             
             AddPoolComponent<BusinessTitleComponent>(entity).Value = title;
             AddPoolComponent<BusinessTypeComponent>(entity).Value = businessType;

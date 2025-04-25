@@ -14,7 +14,8 @@ namespace Core.Business.Systems
     {
         private EcsCustomInject<PlayerDataService> _playerDataService;
         
-        private EcsFilterInject<Inc<BusinessLevelUpRequestComponent, LevelComponent, LevelUpPriceComponent>> _requestFilter;
+        private EcsFilterInject<Inc<BusinessLevelUpRequestComponent, LevelComponent, LevelUpPriceComponent, 
+            BusinessTypeComponent>> _requestFilter;
         
         private EcsPoolInject<LevelComponent> _levelComponentPool;
         private EcsPoolInject<LevelUpPriceComponent> _levelUpPricePool;
@@ -44,8 +45,14 @@ namespace Core.Business.Systems
                     Debug.LogWarning("New Business");
                     systems.GetWorld().GetPool<BusinessBuyRequestComponent>().Add(entity);
                 }
+                else //buy business means automatically add level
+                {
+                    ref var businessType = ref _requestFilter.Pools.Inc4.Get(entity).Value;
+                    _playerDataService.Value.BusinessMediator.AddLevel(businessType);
+                }
                 
                 levelComponent.Value++;
+                
                 Notify(entity, levelComponent.Value);
             }
         }

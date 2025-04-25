@@ -7,7 +7,7 @@ using Leopotam.EcsLite.Di;
 
 namespace Core.Business.Systems
 {
-    public class BusinessIncomeCapacityChangedSystem : IEcsRunSystem
+    public class BusinessIncomeCapacityChangeSystem : IEcsRunSystem
     {
         private EcsFilterInject<Inc<NotifyValueChangedComponent<LevelComponent>, IncomeComponent>> _incomesFilter; 
         

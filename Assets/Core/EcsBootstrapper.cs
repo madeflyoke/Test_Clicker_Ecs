@@ -58,7 +58,9 @@ namespace Core
                 .Add(new BusinessBuySystem())
                 .DelHere<BusinessBuyRequestComponent>()
 
-                .Add(new BusinessIncomeCapacityChangedSystem())
+                .Add(new BusinessIncomeCapacityChangeSystem())
+                .Add(new BusinessLevelPriceChangeSystem())
+                
                 .Add(new MoneyCurrencyIncomeProgressSystem())
                 .Add(new MoneyCurrencyIncomeProgressBarFillSystem())
                 
@@ -73,6 +75,8 @@ namespace Core
                 .DelHere<NotifyValueChangedComponent<MoneyCurrencyProgressBarComponent>>()
                 .Add(new BusinessIncomeCapacityNotifyListenersSystem())
                 .DelHere<NotifyValueChangedComponent<IncomeComponent>>()
+                .Add(new BusinessLevelPriceNotifyListenersSystem())
+                .DelHere<NotifyValueChangedComponent<LevelUpPriceComponent>>()
                 .DelHere<NotifyFullRefreshComponent>();
 
 #if CUSTOM_DEBUG

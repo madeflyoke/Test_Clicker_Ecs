@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using Core.Business.Data;
 using Core.Business.Enums;
 
 namespace Core.Services.PlayerData.Business
@@ -6,10 +8,16 @@ namespace Core.Services.PlayerData.Business
     public class BusinessModelMediator
     {
         private readonly BusinessModel _businessModel;
+        private readonly BusinessConfig _businessConfig;
 
-        public BusinessModelMediator(BusinessModel businessModel)
+        public BusinessModelMediator(BusinessModel businessModel, BusinessConfig businessConfig, bool asNewPlayer)
         {
             _businessModel = businessModel;
+            _businessConfig = businessConfig;
+            if (asNewPlayer)
+            {
+                HandeNewPlayer();
+            }
         }
         
         public void AddNewBusiness(BusinessType businessType)
@@ -17,9 +25,9 @@ namespace Core.Services.PlayerData.Business
             _businessModel.AddData(businessType, new BusinessModelData(){Level = 1});
         }
         
-        public void AddLevel(BusinessType businessType, int appendValue)
+        public void AddLevel(BusinessType businessType)
         {
-            _businessModel.GetData(businessType).Level += appendValue;
+            _businessModel.GetData(businessType).Level ++;
         }
 
         public void AddUpgrade(BusinessType businessType, UpgradeType upgradeType)
@@ -49,6 +57,15 @@ namespace Core.Services.PlayerData.Business
         public List<UpgradeType> GetUpgrades(BusinessType businessType)
         {
             return _businessModel.GetData(businessType)?.BoughtUpgrades;
+        }
+        
+        private void HandeNewPlayer()
+        {
+            foreach (var kvp in
+                     _businessConfig.GetAllBusinessData().Where(x=>x.Value.PreOpened))
+            {
+                AddNewBusiness(kvp.Key);
+            }
         }
     }
 }

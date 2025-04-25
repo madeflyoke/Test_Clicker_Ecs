@@ -19,7 +19,7 @@ namespace Core.Services
         public void Initialize()
         {
             GameDataProviderService = new GameDataProviderService();
-            PlayerDataService = new PlayerDataService();
+            PlayerDataService = new PlayerDataService(this);
             EntityFactoriesService = new EntityFactoriesService(this);
         }
     }
