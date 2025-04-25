@@ -9,5 +9,6 @@ namespace Core.Services.PlayerData.Business
     {
         public int Level;
         public List<UpgradeType> BoughtUpgrades = new List<UpgradeType>();
+        public float NormalizedIncomeProgress;
     }
 }

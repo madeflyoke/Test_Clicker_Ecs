@@ -1,32 +1,41 @@
 using Core.Business.Components;
 using Core.Currency.Components;
 using Core.Currency.Components.Events;
+using Core.Services.PlayerData;
+using Core.Services.PlayerData.Business;
 using Core.Utils.Enums;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using UnityEngine;
 
-namespace Core.Currency.Systems
+namespace Core.Business.Systems
 {
-    public class MoneyCurrencyIncomeProgressSystem : IEcsRunSystem
+    public class BusinessIncomeProgressSystem : IEcsRunSystem, IEcsInitSystem
     {
-        private EcsFilterInject<Inc<IncomeComponent, ActiveStateComponent>> _targetFilter;
+        private EcsCustomInject<PlayerDataService> _playerDataService;
+        private BusinessModelMediator _businessModelMediator;
         
-        private EcsPoolInject<IncomeComponent> _incomePool;
-        private EcsPoolInject<LevelComponent> _levelPool;
+        private EcsFilterInject<Inc<IncomeComponent, ActiveStateComponent, BusinessTypeComponent>> _targetFilter;
         
         private EcsPoolInject<MoneyCurrencyChangedRequestComponent> _requestPool;
+        
+        public void Init(IEcsSystems systems)
+        {
+            _businessModelMediator = _playerDataService.Value.BusinessMediator;
+        }
         
         public void Run(IEcsSystems systems)
         {
             foreach (var entity in _targetFilter.Value)
             {
-                ref var income = ref _incomePool.Value.Get(entity);
+                ref var income = ref _targetFilter.Pools.Inc1.Get(entity);
                 income.CurrentIncomeNormalized += Time.deltaTime/ income.IncomeDuration;
+                
+                ref var businessType = ref _targetFilter.Pools.Inc3.Get(entity).Value;
+                _businessModelMediator.SetNormalizedIncomeProgress(businessType, income.CurrentIncomeNormalized);
+                
                 if (income.CurrentIncomeNormalized>=1f)
                 {
-                    income.CurrentIncomeNormalized = 1f; //clamp
-                    
                     ref var requestComponent = ref _requestPool.Value.Add(systems.GetWorld().NewEntity());
                     requestComponent.Operation = OperationType.Add;
                     requestComponent.Value = income.Capacity;

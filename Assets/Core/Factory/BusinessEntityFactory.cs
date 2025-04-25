@@ -71,6 +71,7 @@ namespace Core.Factory
                 incomeMultiplierComponent.MultiplierPercent);
             incomeComponent.IncomeDuration = configData.IncomeDuration;
             incomeComponent.BaseIncome = configData.BaseIncome;
+            incomeComponent.CurrentIncomeNormalized = businessBought? playerBusinessData.GetNormalizedIncomeProgress(businessType) :0;
             
             ref var progressBarComponent = ref AddPoolComponent<MoneyCurrencyProgressBarComponent>(entity);
             progressBarComponent.MaxValue = 1f;

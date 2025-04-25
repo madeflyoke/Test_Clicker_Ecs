@@ -31,7 +31,7 @@ namespace Core.Services.PlayerData.Currency
             result = Math.Clamp(result, 0d, double.MaxValue);
             _moneyModel.Value = result;
         }
-
+        
         public double GetValue()
         {
             return _moneyModel.Value;

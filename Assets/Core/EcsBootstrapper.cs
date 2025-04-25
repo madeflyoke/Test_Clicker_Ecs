@@ -66,7 +66,7 @@ namespace Core
                 .Add(new BusinessIncomeCapacityChangeSystem())
                 .Add(new BusinessLevelPriceChangeSystem())
                 
-                .Add(new MoneyCurrencyIncomeProgressSystem())
+                .Add(new BusinessIncomeProgressSystem())
                 .Add(new MoneyCurrencyIncomeProgressBarFillSystem())
                 
                 .Add(new MoneyCurrencyChangeSystem())

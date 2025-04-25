@@ -70,6 +70,16 @@ namespace Core.Services.PlayerData.Business
             return _businessModel.GetData(businessType)==null? new List<UpgradeType>():
                 _businessModel.GetData(businessType).BoughtUpgrades;
         }
+
+        public void SetNormalizedIncomeProgress(BusinessType businessType, float progress)
+        {
+            _businessModel.GetData(businessType).NormalizedIncomeProgress = progress;
+        }
+
+        public float GetNormalizedIncomeProgress(BusinessType businessType)
+        {
+            return _businessModel.GetData(businessType).NormalizedIncomeProgress;
+        }
         
         private void HandeNewPlayer()
         {
