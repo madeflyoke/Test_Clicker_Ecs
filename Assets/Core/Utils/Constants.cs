@@ -8,6 +8,7 @@ namespace Core.Utils
         {
             public const string TermsConfig = "TermsConfig";
             public const string BusinessConfig = "BusinessConfig";
+            public const string ViewPrefabsProvider = "ViewPrefabsProvider";
         }
     }
 }
