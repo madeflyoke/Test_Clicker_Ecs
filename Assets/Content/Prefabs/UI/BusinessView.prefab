@@ -257,8 +257,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9b3152c175c9f3f429985a9a9c0c6f6a, type: 2}
+  m_sharedMaterial: {fileID: -4557707481372967901, guid: 9b3152c175c9f3f429985a9a9c0c6f6a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -484,7 +484,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1585624010195844583, guid: 595a9625434dd034ca84c9e313873eb1, type: 3}
       propertyPath: m_fontSize
-      value: 38.3
+      value: 33.05
       objectReference: {fileID: 0}
     - target: {fileID: 2264791560277666661, guid: 595a9625434dd034ca84c9e313873eb1, type: 3}
       propertyPath: m_Pivot.x
@@ -1026,7 +1026,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8122711440722101518, guid: 4bf7317cb92faad4f92d9e39481e59f5, type: 3}
       propertyPath: m_fontSize
-      value: 38.85
+      value: 36.75
       objectReference: {fileID: 0}
     - target: {fileID: 8957957951592347126, guid: 4bf7317cb92faad4f92d9e39481e59f5, type: 3}
       propertyPath: m_Pivot.x
@@ -1139,7 +1139,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1585624010195844583, guid: 595a9625434dd034ca84c9e313873eb1, type: 3}
       propertyPath: m_fontSize
-      value: 38.3
+      value: 33.05
       objectReference: {fileID: 0}
     - target: {fileID: 2264791560277666661, guid: 595a9625434dd034ca84c9e313873eb1, type: 3}
       propertyPath: m_Pivot.x
