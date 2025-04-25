@@ -1,3 +1,4 @@
+using System;
 using Core.Factory;
 using Core.Services;
 using Core.UI.Gameplay;
@@ -33,6 +34,12 @@ namespace Core
         private void OnApplicationQuit()
         {
             _servicesProvider?.PlayerDataService?.Save();
+        }
+
+        private void OnApplicationFocus(bool hasFocus)
+        {
+            if(hasFocus==false)
+                _servicesProvider?.PlayerDataService?.Save();
         }
     }
 }

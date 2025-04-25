@@ -1,4 +1,3 @@
-using System.Linq;
 using Core.Business.Components;
 using Core.Business.Data;
 using Core.Business.Enums;
@@ -8,10 +7,10 @@ using Core.Currency.Components;
 using Core.Factory.Interfaces;
 using Core.Services;
 using Core.Services.PlayerData;
+using Core.Services.PlayerData.Business;
 using Core.Terms;
 using Core.Utils;
 using Leopotam.EcsLite;
-using Leopotam.EcsLite.Di;
 
 namespace Core.Factory
 {
@@ -32,18 +31,13 @@ namespace Core.Factory
             _playerDataService = _servicesProvider.PlayerDataService;
         }
 
-        public int Construct(BusinessType businessType) //todo divide by methods
+        public int Construct(BusinessType businessType)
         {
             var playerBusinessData = _playerDataService.BusinessMediator;
-            
-            var configData = _dataConfig.GetBusinessData(businessType); //todo blueprints
-            var title = _termsConfig.GetBusinessName(businessType);
+            var configData = _dataConfig.GetBusinessData(businessType);
             
             var entity = _world.NewEntity();
-            
-            var level = playerBusinessData.HasBusiness(businessType) ? playerBusinessData.GetLevel(businessType) :
-                (configData.PreOpened? 1:0);
-
+            var level = CreateLevelComponents(entity,businessType,configData, playerBusinessData);
             var businessBought = level > 0;
             
             if (businessBought)
@@ -51,16 +45,36 @@ namespace Core.Factory
                 AddPoolComponent<ActiveStateComponent>(entity);
             }
             
+            var title = _termsConfig.GetBusinessName(businessType);
+            AddPoolComponent<TitleComponent>(entity).Value = title;
+            AddPoolComponent<BusinessTypeComponent>(entity).Value = businessType;
+            
+            CreateIncomeComponents(entity, level, configData, playerBusinessData, businessBought, businessType);
+            
+            AddPoolComponent<MoneyCurrencyProgressBarComponent>(entity).MaxValue = 1f;
+
+            CreateUpgradeEntities(businessType, businessBought);
+            
+            return entity;
+        }
+
+        private int CreateLevelComponents(int entity, BusinessType businessType, BusinessData configData, BusinessModelMediator playerBusinessData)
+        {
+            var level = playerBusinessData.HasBusiness(businessType) ? playerBusinessData.GetLevel(businessType) :
+                (configData.PreOpened? 1:0);
+            
             AddPoolComponent<LevelComponent>(entity).Value = level;
             ref var levelUpPriceComponent = ref AddPoolComponent<LevelUpPriceComponent>(entity);
             levelUpPriceComponent.Value=FormulasUtils.CalculateNextLevelPrice(level, configData.BasePrice);
             levelUpPriceComponent.BaseValue = configData.BasePrice;
-            
-            AddPoolComponent<TitleComponent>(entity).Value = title;
-            AddPoolComponent<BusinessTypeComponent>(entity).Value = businessType;
-            
-            ref var incomeMultiplierComponent = ref AddPoolComponent<IncomeMultiplierComponent>(entity);
 
+            return level;
+        }
+
+        private void CreateIncomeComponents(int entity, int level, BusinessData configData,
+            BusinessModelMediator playerBusinessData, bool businessBought, BusinessType businessType)
+        {
+            ref var incomeMultiplierComponent = ref AddPoolComponent<IncomeMultiplierComponent>(entity);
             foreach (var upgradeType in playerBusinessData.GetUpgrades(businessType))
             {
                 incomeMultiplierComponent.ValuePercent += configData.TryGetUpgrade(upgradeType).IncomeMultiplier;
@@ -72,15 +86,8 @@ namespace Core.Factory
             incomeComponent.IncomeDuration = configData.IncomeDuration;
             incomeComponent.BaseIncome = configData.BaseIncome;
             incomeComponent.CurrentIncomeNormalized = businessBought? playerBusinessData.GetNormalizedIncomeProgress(businessType) :0;
-            
-            ref var progressBarComponent = ref AddPoolComponent<MoneyCurrencyProgressBarComponent>(entity);
-            progressBarComponent.MaxValue = 1f;
-
-            CreateUpgradeEntities(businessType, businessBought);
-            
-            return entity;
         }
-
+        
         private void CreateUpgradeEntities(BusinessType businessType, bool isActive)
         {
             var configData = _dataConfig.GetBusinessData(businessType);
