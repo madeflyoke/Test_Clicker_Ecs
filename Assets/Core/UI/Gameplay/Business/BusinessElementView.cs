@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Core.UI.Common;
 using TMPro;
 using UnityEngine;
 
@@ -8,11 +7,16 @@ namespace Core.UI.Gameplay.Business
     public class BusinessElementView : MonoBehaviour
     {
         [SerializeField] private TMP_Text _titleText;
-        [SerializeField] private ProgressBar _progressBar;
-        [SerializeField] private LevelInfoView _levelInfoView;
-        [SerializeField] private IncomeInfoView _incomeInfoView;
-        [SerializeField] private LevelUpButtonView _levelUpButtonView;
+        
+        [field: SerializeField] public MoneyCurrencyProgressBar MoneyCurrencyProgressBar {get; private set;}
+        [field: SerializeField] public LevelInfoView LevelInfoView {get; private set;}
+        [field: SerializeField] public IncomeInfoView IncomeInfoView {get; private set;}
+        [field: SerializeField] public LevelUpButtonView LevelUpButtonView { get; private set; }
         [SerializeField] private List<UpgradeView> _upgradeViews;
 
+        public void SetTitle(string title)
+        {
+            _titleText.text = title;
+        }
     }
 }

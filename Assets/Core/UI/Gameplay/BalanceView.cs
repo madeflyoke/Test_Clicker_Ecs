@@ -1,4 +1,4 @@
-using Core.Currency.Interfaces;
+using Core.Common.Interfaces;
 using Core.Utils;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Core.UI.Gameplay
 {
-    public class BalanceView : SerializedMonoBehaviour, IMoneyChangedListener
+    public class BalanceView : MonoBehaviour, IValueChangedListener<double>
     {
         [SerializeField] private TMP_Text _text;
         
@@ -15,7 +15,7 @@ namespace Core.UI.Gameplay
             _text.text = value.ToIntFloorString().WithDollarPostfix();
         }
 
-        public void OnMoneyChanged(double value)
+        public void OnValueChanged(double value)
         {
             RefreshView(value);
         }
