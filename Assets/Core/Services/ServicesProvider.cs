@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Core.Business.Enums;
-using Core.Services.Configs;
+using Core.Services.GameData;
 using Core.Services.PlayerData;
 using Core.Services.PlayerData.Business;
 using Core.Utils.PlayerData;
@@ -13,17 +13,14 @@ namespace Core.Services
     {
         public GameDataProviderService GameDataProviderService { get; private set; }
         public PlayerDataService PlayerDataService { get; private set; }
+        
+        public EntityFactoriesService EntityFactoriesService { get; private set; }
 
         public void Initialize()
         {
             GameDataProviderService = new GameDataProviderService();
             PlayerDataService = new PlayerDataService();
-        }
-
-        [Button]
-        public void Cr()
-        {
-            PlayerDataService.DebugDo();
+            EntityFactoriesService = new EntityFactoriesService(this);
         }
     }
 }

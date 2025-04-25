@@ -31,7 +31,7 @@ namespace Core.Services.PlayerData.Business
             }
         }
 
-        public bool IsBusinessBought(BusinessType businessType)
+        public bool HasBusiness(BusinessType businessType)
         {
             return _businessModel.GetData(businessType)!= null;
         }

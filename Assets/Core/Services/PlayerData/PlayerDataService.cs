@@ -14,7 +14,7 @@ namespace Core.Services.PlayerData
         public BusinessModelMediator BusinessMediator { get; private set; }
         public MoneyCurrencyModelMediator MoneyCurrencyMediator { get; private set; }
 
-        private readonly PlayerDataContainer _playerDataContainer;
+        private PlayerDataContainer _playerDataContainer;
         
         public PlayerDataService()
         {
@@ -22,23 +22,18 @@ namespace Core.Services.PlayerData
 
             if (_playerDataContainer == null)
             {
-                _playerDataContainer = new PlayerDataContainer(
-                    new BusinessModel(new Dictionary<BusinessType, BusinessModelData>()),
-                    new MoneyCurrencyModel(0d));
-                Save();
+                HandleNewPlayer();
             }
 
             MoneyCurrencyMediator = new MoneyCurrencyModelMediator(_playerDataContainer.MoneyCurrencyModel);
             BusinessMediator = new BusinessModelMediator(_playerDataContainer.BusinessModel);
         }
 
-        public void DebugDo()
+        private void HandleNewPlayer()
         {
-            MoneyCurrencyMediator.Operate(22, OperationType.Add);
-            
-            BusinessMediator.AddNewBusiness(BusinessType.BUSINESS4);
-            BusinessMediator.AddLevel(BusinessType.BUSINESS4,4);
-            BusinessMediator.AddUpgrade(BusinessType.BUSINESS4, UpgradeType.UPGRADE2);
+            _playerDataContainer = new PlayerDataContainer(
+                new BusinessModel(new Dictionary<BusinessType, BusinessModelData>()),
+                new MoneyCurrencyModel(0d));
             Save();
         }
         
