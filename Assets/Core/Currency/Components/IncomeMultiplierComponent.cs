@@ -2,6 +2,6 @@ namespace Core.Currency.Components
 {
     public struct IncomeMultiplierComponent
     {
-        public int MultiplierPercent;
+        public int ValuePercent;
     }
 }

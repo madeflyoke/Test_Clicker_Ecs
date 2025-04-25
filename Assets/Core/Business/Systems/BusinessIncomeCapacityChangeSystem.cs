@@ -27,7 +27,7 @@ namespace Core.Business.Systems
                 ref var incomeMultiplierComponent = ref _targetFilter.Pools.Inc2.Get(entity);
                 
                 incomeComponent.Capacity = FormulasUtils.CalculateIncome(levelComponent.Value, 
-                    incomeComponent.BaseIncome, incomeMultiplierComponent.MultiplierPercent);
+                    incomeComponent.BaseIncome, incomeMultiplierComponent.ValuePercent);
 
                 if (_requestsByLevel.Value.Has(entity) || _requestsByMultiplier.Value.Has(entity))
                 {

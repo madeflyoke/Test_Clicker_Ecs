@@ -25,6 +25,7 @@ namespace Core.UI.Gameplay.Business
                 _viewFactory.ApplyEntityToView(instance, kvp.Value);
                 _currentElementsViews.Add(instance, kvp.Value);
             }
+            //apply dynamic scroll pool system
         }
     }
 }

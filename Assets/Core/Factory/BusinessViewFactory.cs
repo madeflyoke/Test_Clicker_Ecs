@@ -62,7 +62,7 @@ namespace Core.Factory
 
             var index = 0;
             
-            foreach (var entity in _world.Filter<UpgradeComponent>().Inc<BusinessTypeComponent>().End())
+            foreach (var entity in _world.Filter<UpgradeTypeComponent>().Inc<BusinessTypeComponent>().End())
             {
                 ref var upgradeBusinessType = ref _world.GetPool<BusinessTypeComponent>().Get(entity);
                 if (upgradeBusinessType.Value==sourceBusinessType.Value)
@@ -77,9 +77,11 @@ namespace Core.Factory
                     var title = _world.GetPool<TitleComponent>().Get(entity).Value;
                     target.SetTitle(title);
 
-                    var upgradeData = _world.GetPool<UpgradeComponent>().Get(entity);
-                    target.SetPriceText(upgradeData.Price);
-                    target.SetIncomeValueText(upgradeData.MultiplierPercent);
+                    var incomeMultiplier = _world.GetPool<IncomeMultiplierComponent>().Get(entity);
+
+                    var upgradePrice = _world.GetPool<UpgradePriceComponent>().Get(entity).Value;
+                    target.SetPriceText(upgradePrice);
+                    target.SetIncomeValueText(incomeMultiplier.ValuePercent);
                     
                     target.SetupClickAction(()=>AddPoolComponent<BusinessUpgradeRequestComponent>(entity));
 

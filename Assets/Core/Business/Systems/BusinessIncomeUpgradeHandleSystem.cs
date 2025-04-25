@@ -17,22 +17,22 @@ namespace Core.Business.Systems
     {
         private EcsCustomInject<PlayerDataService> _playerDataService;
     
-        private EcsFilterInject<Inc<BusinessUpgradeRequestComponent, UpgradeComponent, UpgradeTypeComponent,
-            BusinessTypeComponent, ActiveStateComponent>> _requestCallersFilter;
+        private EcsFilterInject<Inc<BusinessUpgradeRequestComponent, IncomeMultiplierComponent, UpgradeTypeComponent,
+            BusinessTypeComponent, ActiveStateComponent, UpgradePriceComponent>> _requestCallersFilter;
         
         private EcsPoolInject<MoneyCurrencyChangedRequestComponent> _moneyRequestPool;
         
         private EcsPoolInject<NotifyValueChangedComponent<UpgradeTypeComponent>> _notifiers;
-        private EcsFilterInject<Inc<BusinessTypeComponent, IncomeMultiplierComponent>> _notifiersFilter;
+        private EcsFilterInject<Inc<BusinessTypeComponent, IncomeMultiplierComponent>, Exc<UpgradeTypeComponent>> _notifiersFilter;
         
         public void Run(IEcsSystems systems)
         {
             foreach (var entity in _requestCallersFilter.Value)
             {
-                ref var upgrade = ref _requestCallersFilter.Pools.Inc2.Get(entity);
+                ref var incomeMultiplier = ref _requestCallersFilter.Pools.Inc2.Get(entity).ValuePercent;
                 ref var upgradeType = ref _requestCallersFilter.Pools.Inc3.Get(entity);
                 
-                var price = upgrade.Price;
+                ref var price = ref _requestCallersFilter.Pools.Inc6.Get(entity).Value;
                 
                 if (price>_playerDataService.Value.MoneyCurrencyMediator.GetValue())
                 {
@@ -46,13 +46,13 @@ namespace Core.Business.Systems
                 moneyRequest.Value = price;
                 moneyRequest.Operation = OperationType.Subtract;
                 
-                ApplyData(businessType, upgrade, upgradeType.Value);
+                ApplyData(businessType, incomeMultiplier, upgradeType.Value);
                 
                 systems.GetWorld().GetPool<ActiveStateComponent>().Del(entity);
             }
         }
         
-        private void ApplyData(BusinessType targetType, UpgradeComponent data, UpgradeType upgrade)
+        private void ApplyData(BusinessType targetType, int additionalIncomeMultiplier, UpgradeType upgrade)
         {
             foreach (var notifierEntity in _notifiersFilter.Value)
             {
@@ -61,7 +61,7 @@ namespace Core.Business.Systems
                 if (businessType.Value==targetType)
                 {
                     ref var incomeMultiplier = ref _notifiersFilter.Pools.Inc2.Get(notifierEntity);
-                    incomeMultiplier.MultiplierPercent+= data.MultiplierPercent;
+                    incomeMultiplier.ValuePercent+= additionalIncomeMultiplier;
                     NotifyUpgrade(notifierEntity, upgrade);
                 }
             }

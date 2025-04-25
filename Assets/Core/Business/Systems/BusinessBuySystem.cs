@@ -1,7 +1,5 @@
 using Core.Business.Components;
 using Core.Business.Components.Events;
-using Core.Business.Upgrades.Components;
-using Core.Services;
 using Core.Services.PlayerData;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;

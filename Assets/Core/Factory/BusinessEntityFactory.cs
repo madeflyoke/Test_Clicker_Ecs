@@ -63,12 +63,12 @@ namespace Core.Factory
 
             foreach (var upgradeType in playerBusinessData.GetUpgrades(businessType))
             {
-                incomeMultiplierComponent.MultiplierPercent += configData.TryGetUpgrade(upgradeType).IncomeMultiplier;
+                incomeMultiplierComponent.ValuePercent += configData.TryGetUpgrade(upgradeType).IncomeMultiplier;
             }
             
             ref var incomeComponent = ref AddPoolComponent<IncomeComponent>(entity);
             incomeComponent.Capacity = FormulasUtils.CalculateIncome(level, configData.BaseIncome,
-                incomeMultiplierComponent.MultiplierPercent);
+                incomeMultiplierComponent.ValuePercent);
             incomeComponent.IncomeDuration = configData.IncomeDuration;
             incomeComponent.BaseIncome = configData.BaseIncome;
             incomeComponent.CurrentIncomeNormalized = businessBought? playerBusinessData.GetNormalizedIncomeProgress(businessType) :0;
@@ -93,12 +93,10 @@ namespace Core.Factory
                 
                 AddPoolComponent<TitleComponent>(entity).Value = title;
                 
-                ref var upgradeComponent = ref AddPoolComponent<UpgradeComponent>(entity);
-                upgradeComponent.Price = upgradeData.Price;
-                upgradeComponent.MultiplierPercent = upgradeData.IncomeMultiplier;
-
+                AddPoolComponent<UpgradePriceComponent>(entity).Value = upgradeData.Price;
                 AddPoolComponent<BusinessTypeComponent>(entity).Value = businessType;
                 AddPoolComponent<UpgradeTypeComponent>(entity).Value = upgradeData.UpgradeType;
+                AddPoolComponent<IncomeMultiplierComponent>(entity).ValuePercent = upgradeData.IncomeMultiplier;
 
                 if (isActive)
                 {
