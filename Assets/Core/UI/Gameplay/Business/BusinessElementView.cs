@@ -12,7 +12,7 @@ namespace Core.UI.Gameplay.Business
         [field: SerializeField] public LevelInfoView LevelInfoView {get; private set;}
         [field: SerializeField] public IncomeInfoView IncomeInfoView {get; private set;}
         [field: SerializeField] public LevelUpButtonView LevelUpButtonView { get; private set; }
-        [SerializeField] private List<UpgradeView> _upgradeViews;
+        [field: SerializeField] public List<UpgradeView> UpgradeViews{ get; private set; }
 
         public void SetTitle(string title)
         {

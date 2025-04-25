@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Core.Business.Enums;
 
 namespace Core.Business.Data
 {
@@ -11,5 +13,10 @@ namespace Core.Business.Data
         public int BaseIncome;
         public List<UpgradeData> Upgrades;
         public bool PreOpened;
+
+        public UpgradeData TryGetUpgrade(UpgradeType type)
+        {
+            return Upgrades.FirstOrDefault(x=>x.UpgradeType == type);
+        }
     }
 }

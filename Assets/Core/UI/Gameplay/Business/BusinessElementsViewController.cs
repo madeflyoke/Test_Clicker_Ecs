@@ -21,7 +21,7 @@ namespace Core.UI.Gameplay.Business
             
             foreach (var kvp in _businessEntities)
             {
-                var instance = _viewFactory.ConstructNew(_container);
+                var instance = _viewFactory.Construct(_container);
                 _viewFactory.ApplyEntityToView(instance, kvp.Value);
                 _currentElementsViews.Add(instance, kvp.Value);
             }

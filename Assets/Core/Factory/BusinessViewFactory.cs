@@ -1,16 +1,12 @@
 using System.Collections.Generic;
 using Core.Business.Components;
 using Core.Business.Components.Events;
-using Core.Business.Data;
-using Core.Business.Enums;
+using Core.Business.Upgrades.Components;
 using Core.Common.Components;
 using Core.Common.Components.Events;
-using Core.Common.Interfaces;
 using Core.Currency.Components;
-using Core.Currency.Components.Events;
 using Core.Factory.Interfaces;
 using Core.Services;
-using Core.Terms;
 using Core.UI.Gameplay.Business;
 using Leopotam.EcsLite;
 using UnityEngine;
@@ -21,6 +17,7 @@ namespace Core.Factory
     {
         private EcsWorld _world;
         private BusinessElementView _businessElementViewPrefab;
+        private UpgradeView _upgradeViewPrefab;
 
         public void Initialize(EcsWorld world, ServicesProvider servicesProvider)
         {
@@ -30,7 +27,7 @@ namespace Core.Factory
                 servicesProvider.GameDataProviderService.ViewPrefabsProvider.BusinessElementViewPrefab;
         }
 
-        public BusinessElementView ConstructNew(Transform parent)
+        public BusinessElementView Construct(Transform parent)
         {
             var instance = Object.Instantiate(_businessElementViewPrefab, parent);
             return instance;
@@ -38,7 +35,7 @@ namespace Core.Factory
         
         public void ApplyEntityToView(BusinessElementView view, int dataEntity)
         {
-            var title = _world.GetPool<BusinessTitleComponent>().Get(dataEntity).Value;
+            var title = _world.GetPool<TitleComponent>().Get(dataEntity).Value;
             view.SetTitle(title);
             
             var levelPrice = _world.GetPool<LevelUpPriceComponent>().Get(dataEntity).Value;
@@ -54,7 +51,43 @@ namespace Core.Factory
             AddPoolComponent<ValueChangedListenerComponent<IncomeComponent, double>>(dataEntity).Listener =
                 view.IncomeInfoView;
 
+            ApplyUpgradesView(dataEntity, view.UpgradeViews);
+            
             ApplyRefresh(dataEntity);
+        }
+
+        private void ApplyUpgradesView(int businessEntity, List<UpgradeView> targets)
+        {
+            ref var sourceBusinessType = ref _world.GetPool<BusinessTypeComponent>().Get(businessEntity);
+
+            var index = 0;
+            
+            foreach (var entity in _world.Filter<UpgradeComponent>().Inc<BusinessTypeComponent>().End())
+            {
+                ref var upgradeBusinessType = ref _world.GetPool<BusinessTypeComponent>().Get(entity);
+                if (upgradeBusinessType.Value==sourceBusinessType.Value)
+                {
+                    if (index >= targets.Count)
+                    {
+                        Debug.LogWarning("No upgrade view to apply data");
+                        return;
+                    }
+                    
+                    var target = targets[index];
+                    var title = _world.GetPool<TitleComponent>().Get(entity).Value;
+                    target.SetTitle(title);
+
+                    var upgradeData = _world.GetPool<UpgradeComponent>().Get(entity);
+                    target.SetPriceText(upgradeData.Price);
+                    target.SetIncomeValueText(upgradeData.MultiplierPercent);
+                    
+                    target.SetupClickAction(()=>AddPoolComponent<BusinessUpgradeRequestComponent>(entity));
+
+                    AddPoolComponent<CommonListenerComponent<UpgradeTypeComponent>>(entity).NotifyListener = target;
+                    ApplyRefresh(entity);
+                    index++;
+                }
+            }
         }
 
 

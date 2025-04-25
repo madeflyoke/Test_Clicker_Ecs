@@ -150,7 +150,7 @@ MonoBehaviour:
   <LevelInfoView>k__BackingField: {fileID: 2179625427865987592}
   <IncomeInfoView>k__BackingField: {fileID: 4233112691192224742}
   <LevelUpButtonView>k__BackingField: {fileID: 7052264567314429524}
-  _upgradeViews:
+  <UpgradeViews>k__BackingField:
   - {fileID: 6934818961879002042}
   - {fileID: 175018349203955258}
 --- !u!1 &2072166888256737409

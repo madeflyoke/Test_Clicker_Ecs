@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Business.Data;
@@ -7,6 +8,8 @@ namespace Core.Services.PlayerData.Business
 {
     public class BusinessModelMediator
     {
+        public event Action OnSaveRequest;
+        
         private readonly BusinessModel _businessModel;
         private readonly BusinessConfig _businessConfig;
 
@@ -23,19 +26,27 @@ namespace Core.Services.PlayerData.Business
         public void AddNewBusiness(BusinessType businessType)
         {
             _businessModel.AddData(businessType, new BusinessModelData(){Level = 1});
+            OnSaveRequest?.Invoke();
         }
         
         public void AddLevel(BusinessType businessType)
         {
             _businessModel.GetData(businessType).Level ++;
+            OnSaveRequest?.Invoke();
         }
 
         public void AddUpgrade(BusinessType businessType, UpgradeType upgradeType)
         {
+            if (HasBusiness(businessType)==false)
+            {
+                return;
+            }
+            
             var upgrades = _businessModel.GetData(businessType).BoughtUpgrades;
             if (upgrades.Contains(upgradeType)==false)
             {
                 upgrades.Add(upgradeType);
+                OnSaveRequest?.Invoke();
             }
         }
 
@@ -56,7 +67,8 @@ namespace Core.Services.PlayerData.Business
 
         public List<UpgradeType> GetUpgrades(BusinessType businessType)
         {
-            return _businessModel.GetData(businessType)?.BoughtUpgrades;
+            return _businessModel.GetData(businessType)==null? new List<UpgradeType>():
+                _businessModel.GetData(businessType).BoughtUpgrades;
         }
         
         private void HandeNewPlayer()
@@ -66,6 +78,7 @@ namespace Core.Services.PlayerData.Business
             {
                 AddNewBusiness(kvp.Key);
             }
+            OnSaveRequest?.Invoke();
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Text;
 using UnityEngine;
 
 namespace Core.Utils
@@ -14,6 +15,11 @@ namespace Core.Utils
         public static string WithDollarPostfix(this string value)
         {
             return value + "$";
+        }
+
+        public static string ToPlusPercentView(this string value)
+        {
+            return "+" + value + "%";
         }
     }
 }

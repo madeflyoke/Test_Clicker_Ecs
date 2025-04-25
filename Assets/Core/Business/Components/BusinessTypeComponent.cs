@@ -4,6 +4,6 @@ namespace Core.Business.Components
 {
     public struct BusinessTypeComponent
     {
-        public BusinessType Value; //cheating?
+        public BusinessType Value;
     }
 }

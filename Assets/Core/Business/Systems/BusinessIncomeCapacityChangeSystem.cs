@@ -1,4 +1,5 @@
 using Core.Business.Components;
+using Core.Business.Upgrades.Components;
 using Core.Common.Components.Events;
 using Core.Currency.Components;
 using Core.Utils;
@@ -9,19 +10,29 @@ namespace Core.Business.Systems
 {
     public class BusinessIncomeCapacityChangeSystem : IEcsRunSystem
     {
-        private EcsFilterInject<Inc<NotifyValueChangedComponent<LevelComponent>, IncomeComponent>> _incomesFilter; 
+        private EcsFilterInject<Inc<IncomeComponent, IncomeMultiplierComponent, LevelComponent, BusinessTypeComponent>> 
+            _targetFilter;
+        
+        private EcsPoolInject<NotifyValueChangedComponent<LevelComponent>> _requestsByLevel; 
+        private EcsPoolInject<NotifyValueChangedComponent<UpgradeTypeComponent>> _requestsByMultiplier; 
         
         private EcsPoolInject<NotifyValueChangedComponent<IncomeComponent>> _notifiers;
     
         public void Run(IEcsSystems systems)
         {
-            foreach (var entity in _incomesFilter.Value)
+            foreach (var entity in _targetFilter.Value)
             {
-                ref var levelComponent = ref _incomesFilter.Pools.Inc1.Get(entity).ValueSource;
-                ref var incomeComponent = ref _incomesFilter.Pools.Inc2.Get(entity);
+                ref var levelComponent = ref _targetFilter.Pools.Inc3.Get(entity);
+                ref var incomeComponent = ref _targetFilter.Pools.Inc1.Get(entity);
+                ref var incomeMultiplierComponent = ref _targetFilter.Pools.Inc2.Get(entity);
+                
+                incomeComponent.Capacity = FormulasUtils.CalculateIncome(levelComponent.Value, 
+                    incomeComponent.BaseIncome, incomeMultiplierComponent.MultiplierPercent);
 
-                incomeComponent.Capacity = FormulasUtils.CalculateIncome(levelComponent.Value, incomeComponent.BaseIncome);
-                Notify(entity, incomeComponent.Capacity);
+                if (_requestsByLevel.Value.Has(entity) || _requestsByMultiplier.Value.Has(entity))
+                {
+                    Notify(entity, incomeComponent.Capacity);
+                }
             }
         }
 

@@ -3,9 +3,8 @@ using Core.Currency.Components;
 using Core.Services.PlayerData;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
-using UnityEngine;
 
-namespace Core.Business.Systems.Notify
+namespace Core.Currency.Systems.Notify
 {
     public class MoneyCurrencyNotifyListenersSystem : IEcsRunSystem, IEcsInitSystem
     {

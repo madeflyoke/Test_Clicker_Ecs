@@ -10,7 +10,7 @@ namespace Core.Currency.Systems
 {
     public class MoneyCurrencyIncomeProgressSystem : IEcsRunSystem
     {
-        private EcsFilterInject<Inc<IncomeComponent, LevelComponent>> _targetFilter;
+        private EcsFilterInject<Inc<IncomeComponent, ActiveStateComponent>> _targetFilter;
         
         private EcsPoolInject<IncomeComponent> _incomePool;
         private EcsPoolInject<LevelComponent> _levelPool;
@@ -21,13 +21,6 @@ namespace Core.Currency.Systems
         {
             foreach (var entity in _targetFilter.Value)
             {
-                ref var level = ref _levelPool.Value.Get(entity);
-
-                if (level.Value<1) //business not bought check for now
-                {
-                    continue;
-                }
-                
                 ref var income = ref _incomePool.Value.Get(entity);
                 income.CurrentIncomeNormalized += Time.deltaTime/ income.IncomeDuration;
                 if (income.CurrentIncomeNormalized>=1f)

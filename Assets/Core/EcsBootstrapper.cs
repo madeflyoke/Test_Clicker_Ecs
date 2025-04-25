@@ -4,10 +4,13 @@ using Core.Business.Components;
 using Core.Business.Components.Events;
 using Core.Business.Systems;
 using Core.Business.Systems.Notify;
+using Core.Business.Upgrades.Components;
+using Core.Business.Upgrades.Systems;
 using Core.Common.Components.Events;
 using Core.Currency.Components;
 using Core.Currency.Components.Events;
 using Core.Currency.Systems;
+using Core.Currency.Systems.Notify;
 using Core.Interfaces;
 using Core.Services;
 using Leopotam.EcsLite;
@@ -58,6 +61,8 @@ namespace Core
                 .Add(new BusinessBuySystem())
                 .DelHere<BusinessBuyRequestComponent>()
 
+                .Add(new BusinessIncomeUpgradeHandleSystem())
+                .DelHere<BusinessUpgradeRequestComponent>()
                 .Add(new BusinessIncomeCapacityChangeSystem())
                 .Add(new BusinessLevelPriceChangeSystem())
                 
@@ -69,6 +74,8 @@ namespace Core
 
                 .Add(new BusinessLevelNotifyListenersSystem())
                 .DelHere<NotifyValueChangedComponent<LevelComponent>>()
+                .Add(new BusinessUpgradeNotifySystem())
+                .DelHere<NotifyValueChangedComponent<UpgradeTypeComponent>>()
                 .Add(new MoneyCurrencyNotifyListenersSystem())
                 .DelHere<NotifyValueChangedComponent<MoneyInfoComponent>>()
                 .Add(new MoneyCurrencyProgressBarNotifyListenersSystem())
@@ -77,6 +84,7 @@ namespace Core
                 .DelHere<NotifyValueChangedComponent<IncomeComponent>>()
                 .Add(new BusinessLevelPriceNotifyListenersSystem())
                 .DelHere<NotifyValueChangedComponent<LevelUpPriceComponent>>()
+                
                 .DelHere<NotifyFullRefreshComponent>();
 
 #if CUSTOM_DEBUG

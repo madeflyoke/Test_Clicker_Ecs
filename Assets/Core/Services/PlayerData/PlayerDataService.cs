@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core.Business.Enums;
 using Core.Services.PlayerData.Business;
@@ -7,7 +8,7 @@ using Core.Utils.PlayerData;
 
 namespace Core.Services.PlayerData
 {
-    public class PlayerDataService
+    public class PlayerDataService : IDisposable
     {
         private const string PlayerDataKey = "PlayerData";
         
@@ -30,6 +31,7 @@ namespace Core.Services.PlayerData
             MoneyCurrencyMediator = new MoneyCurrencyModelMediator(_playerDataContainer.MoneyCurrencyModel);
             BusinessMediator = new BusinessModelMediator(_playerDataContainer.BusinessModel, 
                 servicesProvider.GameDataProviderService.BusinessConfig,newPlayer);
+            BusinessMediator.OnSaveRequest += Save;
         }
 
         private void HandleNewPlayer()
@@ -37,12 +39,16 @@ namespace Core.Services.PlayerData
             _playerDataContainer = new PlayerDataContainer(
                 new BusinessModel(new Dictionary<BusinessType, BusinessModelData>()),
                 new MoneyCurrencyModel(0d));
-            Save();
         }
         
         public void Save()
         {
             JsonSaver.Save(_playerDataContainer, PlayerDataKey);
+        }
+
+        public void Dispose()
+        {
+            BusinessMediator.OnSaveRequest -= Save;
         }
     }
 }

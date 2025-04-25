@@ -32,7 +32,7 @@ namespace Core
 
         private void OnApplicationQuit()
         {
-            _servicesProvider.PlayerDataService.Save();
+            _servicesProvider?.PlayerDataService?.Save();
         }
     }
 }

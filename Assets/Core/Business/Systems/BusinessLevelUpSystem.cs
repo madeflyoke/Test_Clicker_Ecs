@@ -17,9 +17,6 @@ namespace Core.Business.Systems
         private EcsFilterInject<Inc<BusinessLevelUpRequestComponent, LevelComponent, LevelUpPriceComponent, 
             BusinessTypeComponent>> _requestFilter;
         
-        private EcsPoolInject<LevelComponent> _levelComponentPool;
-        private EcsPoolInject<LevelUpPriceComponent> _levelUpPricePool;
-        
         private EcsPoolInject<MoneyCurrencyChangedRequestComponent> _moneyRequestPool;
         
         private EcsPoolInject<NotifyValueChangedComponent<LevelComponent>> _notifiers;
@@ -28,7 +25,7 @@ namespace Core.Business.Systems
         {
             foreach (var entity in _requestFilter.Value)
             {
-                ref var levelUpPrice = ref _levelUpPricePool.Value.Get(entity);
+                ref var levelUpPrice = ref _requestFilter.Pools.Inc3.Get(entity);
                 
                 if (levelUpPrice.Value>_playerDataService.Value.MoneyCurrencyMediator.GetValue())
                 {
@@ -39,10 +36,9 @@ namespace Core.Business.Systems
                 moneyRequest.Value = levelUpPrice.Value;
                 moneyRequest.Operation = OperationType.Subtract;
                 
-                ref var levelComponent = ref _levelComponentPool.Value.Get(entity);
+                ref var levelComponent = ref _requestFilter.Pools.Inc2.Get(entity);
                 if (levelComponent.Value==0)
                 {
-                    Debug.LogWarning("New Business");
                     systems.GetWorld().GetPool<BusinessBuyRequestComponent>().Add(entity);
                 }
                 else //buy business means automatically add level

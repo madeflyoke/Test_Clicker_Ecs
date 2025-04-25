@@ -3,7 +3,7 @@ using Core.Currency.Components;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 
-namespace Core.Business.Systems.Notify
+namespace Core.Currency.Systems.Notify
 {
     public class MoneyCurrencyProgressBarNotifyListenersSystem : IEcsRunSystem, IEcsInitSystem
     {

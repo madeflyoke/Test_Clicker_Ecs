@@ -943,7 +943,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd4a7fb9235845c4480fa4b6b18190d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameText: {fileID: 183252841020886881}
-  _incomeValueText: {fileID: 5290295091682702146}
-  _priceText: {fileID: 493649737835481678}
-  _boughtObj: {fileID: 5384982517849102851}
+  <NameText>k__BackingField: {fileID: 183252841020886881}
+  <IncomeValueText>k__BackingField: {fileID: 5290295091682702146}
+  <PriceText>k__BackingField: {fileID: 493649737835481678}
+  <UpgradeButton>k__BackingField: {fileID: 3439863723692437446}
+  <BoughtObj>k__BackingField: {fileID: 5384982517849102851}

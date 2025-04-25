@@ -40,7 +40,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 5
     - Name: 
       Entry: 7
       Data: 
@@ -69,24 +69,30 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Core.Business.Data.UpgradeData, Assembly-CSharp
+    - Name: UpgradeType
+      Entry: 3
+      Data: 1
     - Name: Price
       Entry: 4
-      Data: 0
+      Data: 50
     - Name: IncomeMultiplier
       Entry: 3
-      Data: 0
+      Data: 50
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
       Data: Core.Business.Data.UpgradeData, Assembly-CSharp
+    - Name: UpgradeType
+      Entry: 3
+      Data: 2
     - Name: Price
       Entry: 4
-      Data: 0
+      Data: 400
     - Name: IncomeMultiplier
       Entry: 3
-      Data: 0
+      Data: 100
     - Name: 
       Entry: 8
       Data: 
@@ -133,24 +139,240 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Core.Business.Data.UpgradeData, Assembly-CSharp
+    - Name: UpgradeType
+      Entry: 3
+      Data: 1
     - Name: Price
       Entry: 4
-      Data: 0
+      Data: 1200
     - Name: IncomeMultiplier
       Entry: 3
-      Data: 0
+      Data: 100
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
       Data: Core.Business.Data.UpgradeData, Assembly-CSharp
+    - Name: UpgradeType
+      Entry: 3
+      Data: 2
     - Name: Price
       Entry: 4
-      Data: 0
+      Data: 4000
     - Name: IncomeMultiplier
       Entry: 3
-      Data: 0
+      Data: 200
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PreOpened
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 7
+      Data: 6|Core.Business.Data.BusinessData, Assembly-CSharp
+    - Name: IncomeDuration
+      Entry: 3
+      Data: 10
+    - Name: BasePrice
+      Entry: 4
+      Data: 200
+    - Name: BaseIncome
+      Entry: 3
+      Data: 200
+    - Name: Upgrades
+      Entry: 7
+      Data: 7|System.Collections.Generic.List`1[[Core.Business.Data.UpgradeData,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: Core.Business.Data.UpgradeData, Assembly-CSharp
+    - Name: UpgradeType
+      Entry: 3
+      Data: 1
+    - Name: Price
+      Entry: 4
+      Data: 6000
+    - Name: IncomeMultiplier
+      Entry: 3
+      Data: 100
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Core.Business.Data.UpgradeData, Assembly-CSharp
+    - Name: UpgradeType
+      Entry: 3
+      Data: 2
+    - Name: Price
+      Entry: 4
+      Data: 20000
+    - Name: IncomeMultiplier
+      Entry: 3
+      Data: 150
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PreOpened
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: 8|Core.Business.Data.BusinessData, Assembly-CSharp
+    - Name: IncomeDuration
+      Entry: 3
+      Data: 17
+    - Name: BasePrice
+      Entry: 4
+      Data: 1000
+    - Name: BaseIncome
+      Entry: 3
+      Data: 1000
+    - Name: Upgrades
+      Entry: 7
+      Data: 9|System.Collections.Generic.List`1[[Core.Business.Data.UpgradeData,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: Core.Business.Data.UpgradeData, Assembly-CSharp
+    - Name: UpgradeType
+      Entry: 3
+      Data: 1
+    - Name: Price
+      Entry: 4
+      Data: 15000
+    - Name: IncomeMultiplier
+      Entry: 3
+      Data: 100
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Core.Business.Data.UpgradeData, Assembly-CSharp
+    - Name: UpgradeType
+      Entry: 3
+      Data: 2
+    - Name: Price
+      Entry: 4
+      Data: 50000
+    - Name: IncomeMultiplier
+      Entry: 3
+      Data: 200
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PreOpened
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 5
+    - Name: $v
+      Entry: 7
+      Data: 10|Core.Business.Data.BusinessData, Assembly-CSharp
+    - Name: IncomeDuration
+      Entry: 3
+      Data: 30
+    - Name: BasePrice
+      Entry: 4
+      Data: 5000
+    - Name: BaseIncome
+      Entry: 3
+      Data: 5000
+    - Name: Upgrades
+      Entry: 7
+      Data: 11|System.Collections.Generic.List`1[[Core.Business.Data.UpgradeData,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: Core.Business.Data.UpgradeData, Assembly-CSharp
+    - Name: UpgradeType
+      Entry: 3
+      Data: 1
+    - Name: Price
+      Entry: 4
+      Data: 100000
+    - Name: IncomeMultiplier
+      Entry: 3
+      Data: 200
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Core.Business.Data.UpgradeData, Assembly-CSharp
+    - Name: UpgradeType
+      Entry: 3
+      Data: 2
+    - Name: Price
+      Entry: 4
+      Data: 500000
+    - Name: IncomeMultiplier
+      Entry: 3
+      Data: 400
     - Name: 
       Entry: 8
       Data: 
