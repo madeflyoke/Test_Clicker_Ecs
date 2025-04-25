@@ -9,7 +9,7 @@ namespace Core.Utils
             return (currentLevel+1) * basePrice;
         }
 
-        public static double CalculateIncome(int currentLevel, int baseIncome, params int[] incomeMultipliersPercents)
+        public static double CalculateIncome(int currentLevel, double baseIncome, params int[] incomeMultipliersPercents)
         {
             return currentLevel * baseIncome * (1 + incomeMultipliersPercents.Sum()/100f);
         }

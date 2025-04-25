@@ -29,16 +29,16 @@ namespace Core.Currency.Systems
                 }
                 
                 ref var income = ref _incomePool.Value.Get(entity);
-                income.CurrentIncome += (income.MaxValue / income.IncomeDuration) * Time.deltaTime;
-                if (income.CurrentIncome>=income.MaxValue)
+                income.CurrentIncomeNormalized += Time.deltaTime/ income.IncomeDuration;
+                if (income.CurrentIncomeNormalized>=1f)
                 {
-                    income.CurrentIncome = income.MaxValue; //clamp
+                    income.CurrentIncomeNormalized = 1f; //clamp
                     
                     ref var requestComponent = ref _requestPool.Value.Add(systems.GetWorld().NewEntity());
                     requestComponent.Operation = OperationType.Add;
-                    requestComponent.Value = income.MaxValue;
+                    requestComponent.Value = income.Capacity;
                     
-                    income.CurrentIncome = 0;
+                    income.CurrentIncomeNormalized = 0;
                 }
             }
         }

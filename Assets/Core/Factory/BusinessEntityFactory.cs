@@ -49,8 +49,9 @@ namespace Core.Factory
             AddPoolComponent<BusinessTypeComponent>(entity).Value = businessType;
             
             ref var incomeComponent = ref AddPoolComponent<IncomeComponent>(entity);
-            incomeComponent.MaxValue = FormulasUtils.CalculateIncome(level, configData.BaseIncome);//TODO insert upgrades
+            incomeComponent.Capacity = FormulasUtils.CalculateIncome(level, configData.BaseIncome);//TODO insert upgrades
             incomeComponent.IncomeDuration = configData.IncomeDuration;
+            incomeComponent.BaseIncome = configData.BaseIncome;
 
             ref var progressBarComponent = ref AddPoolComponent<MoneyCurrencyProgressBarComponent>(entity);
             progressBarComponent.MaxValue = 1f;

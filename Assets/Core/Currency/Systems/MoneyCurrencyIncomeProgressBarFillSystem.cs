@@ -22,7 +22,7 @@ namespace Core.Currency.Systems
                 ref var bar = ref _progressBarPool.Value.Get(entity);
                 ref var income = ref _incomePool.Value.Get(entity);
 
-                bar.CurrentValue = (float)(income.CurrentIncome / income.MaxValue);
+                bar.CurrentValue = income.CurrentIncomeNormalized;
                 if (bar.CurrentValue >= bar.MaxValue)
                 {
                     bar.CurrentValue = bar.MaxValue; //clamp (need?)

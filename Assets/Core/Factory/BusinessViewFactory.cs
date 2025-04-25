@@ -40,20 +40,20 @@ namespace Core.Factory
         {
             var title = _world.GetPool<BusinessTitleComponent>().Get(dataEntity).Value;
             view.SetTitle(title);
-
-            var incomeValue = _world.GetPool<IncomeComponent>().Get(dataEntity).MaxValue;
-            view.IncomeInfoView.SetIncomeValue(incomeValue);
             
-            AddPoolComponent<ValueChangedListenerComponent<MoneyCurrencyProgressBarComponent, float>>(dataEntity).Listener =
-                view.MoneyCurrencyProgressBar;
-
             var levelPrice = _world.GetPool<LevelUpPriceComponent>().Get(dataEntity).Value;
             
             view.LevelUpButtonView.Setup(()=>AddPoolComponent<BusinessLevelUpRequestComponent>(dataEntity),
                 levelPrice);
             
+            AddPoolComponent<ValueChangedListenerComponent<MoneyCurrencyProgressBarComponent, float>>(dataEntity).Listener =
+                view.MoneyCurrencyProgressBar;
+            
             AddPoolComponent<ValueChangedListenerComponent<LevelComponent, int>>(dataEntity).Listener =
                 view.LevelInfoView;
+            
+            AddPoolComponent<ValueChangedListenerComponent<IncomeComponent, double>>(dataEntity).Listener =
+                view.IncomeInfoView;
 
             ApplyRefresh(dataEntity);
         }

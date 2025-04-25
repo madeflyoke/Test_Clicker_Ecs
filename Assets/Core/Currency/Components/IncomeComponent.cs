@@ -2,8 +2,9 @@ namespace Core.Currency.Components
 {
     public struct IncomeComponent
     {
-        public double CurrentIncome;
+        public double BaseIncome;
+        public float CurrentIncomeNormalized;
         public int IncomeDuration;
-        public double MaxValue;
+        public double Capacity;
     }
 }
