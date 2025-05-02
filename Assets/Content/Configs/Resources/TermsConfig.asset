@@ -49,7 +49,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 1
-      Data: "\u0411\u0438\u0437\u043D\u0435\u0441 1"
+      Data: Exoplanet GJ-3470b
     - Name: 
       Entry: 8
       Data: 
@@ -61,7 +61,7 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 1
-      Data: "\u0411\u0438\u0437\u043D\u0435\u0441 2"
+      Data: Exoplanet TRAPPIST-1d
     - Name: 
       Entry: 8
       Data: 
@@ -73,7 +73,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 1
-      Data: "\u0411\u0438\u0437\u043D\u0435\u0441 3"
+      Data: Star YSES-1
     - Name: 
       Entry: 8
       Data: 
@@ -85,7 +85,7 @@ MonoBehaviour:
       Data: 4
     - Name: $v
       Entry: 1
-      Data: "\u0411\u0438\u0437\u043D\u0435\u0441 4"
+      Data: Brown Dwarf GJ-504-b
     - Name: 
       Entry: 8
       Data: 
@@ -97,7 +97,7 @@ MonoBehaviour:
       Data: 5
     - Name: $v
       Entry: 1
-      Data: "\u0411\u0438\u0437\u043D\u0435\u0441 5"
+      Data: White Dwarf Zeta-Herculis-B
     - Name: 
       Entry: 8
       Data: 
@@ -109,11 +109,11 @@ MonoBehaviour:
       Data: 
     - Name: _upgradesNamesData
       Entry: 7
-      Data: 2|System.Collections.Generic.Dictionary`2[[Core.Upgrades.Enums.UpgradeType,
+      Data: 2|System.Collections.Generic.Dictionary`2[[Core.Business.Enums.UpgradeType,
         Assembly-CSharp],[System.String, mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 3|System.Collections.Generic.EnumEqualityComparer`1[[Core.Upgrades.Enums.UpgradeType,
+      Data: 3|System.Collections.Generic.EnumEqualityComparer`1[[Core.Business.Enums.UpgradeType,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -135,7 +135,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 1
-      Data: "\u0423\u043B\u0443\u0447\u0448\u0435\u043D\u0438\u0435 1"
+      Data: UPGRADE 1
     - Name: 
       Entry: 8
       Data: 
@@ -147,7 +147,7 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 1
-      Data: "\u0423\u043B\u0443\u0447\u0448\u0435\u043D\u0438\u0435 2"
+      Data: UPGRADE 2
     - Name: 
       Entry: 8
       Data: 

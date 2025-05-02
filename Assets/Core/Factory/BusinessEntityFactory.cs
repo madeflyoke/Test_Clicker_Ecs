@@ -47,6 +47,8 @@ namespace Core.Factory
             
             var title = _termsConfig.GetBusinessName(businessType);
             AddPoolComponent<TitleComponent>(entity).Value = title;
+            var icon = configData.Icon;
+            AddPoolComponent<IconComponent>(entity).Value = icon;
             AddPoolComponent<BusinessTypeComponent>(entity).Value = businessType;
             
             CreateIncomeComponents(entity, level, configData, playerBusinessData, businessBought, businessType);

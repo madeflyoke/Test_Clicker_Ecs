@@ -21,7 +21,7 @@ namespace Core.UI.Gameplay.Business
 
         public void SetupClickAction(Action clickAction)
         {
-            UpgradeButton.enabled = true;
+            UpgradeButton.interactable = true;
             _onClick = clickAction;
             UpgradeButton.onClick.AddListener(OnClick);
         }
@@ -48,7 +48,7 @@ namespace Core.UI.Gameplay.Business
 
         public void OnNotifyTriggered()
         {
-            UpgradeButton.enabled = false;
+            UpgradeButton.interactable = false;
             _boughtTitleObj.SetActive(true);
             _pricePartObj.SetActive(false);
         }

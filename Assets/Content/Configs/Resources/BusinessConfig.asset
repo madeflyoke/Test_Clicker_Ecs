@@ -15,7 +15,12 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 21300000, guid: 7fd37ac138fced546a89a75d728d0710, type: 3}
+    - {fileID: 21300000, guid: 71ac7bd0a112e0445a75d4cf6d697128, type: 3}
+    - {fileID: 21300000, guid: 765aab9d7d5f75f478521312f0b8a3dd, type: 3}
+    - {fileID: 21300000, guid: f61845ff0fcabb149af7e9f6d8b660ea, type: 3}
+    - {fileID: 21300000, guid: a27406c97e517164cbd7003354e6739c, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -50,6 +55,9 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 2|Core.Business.Data.BusinessData, Assembly-CSharp
+    - Name: Icon
+      Entry: 10
+      Data: 0
     - Name: IncomeDuration
       Entry: 3
       Data: 3
@@ -120,6 +128,9 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 4|Core.Business.Data.BusinessData, Assembly-CSharp
+    - Name: Icon
+      Entry: 10
+      Data: 1
     - Name: IncomeDuration
       Entry: 3
       Data: 6
@@ -190,6 +201,9 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 6|Core.Business.Data.BusinessData, Assembly-CSharp
+    - Name: Icon
+      Entry: 10
+      Data: 2
     - Name: IncomeDuration
       Entry: 3
       Data: 10
@@ -260,6 +274,9 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 8|Core.Business.Data.BusinessData, Assembly-CSharp
+    - Name: Icon
+      Entry: 10
+      Data: 3
     - Name: IncomeDuration
       Entry: 3
       Data: 17
@@ -330,6 +347,9 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 10|Core.Business.Data.BusinessData, Assembly-CSharp
+    - Name: Icon
+      Entry: 10
+      Data: 4
     - Name: IncomeDuration
       Entry: 3
       Data: 30

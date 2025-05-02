@@ -38,6 +38,9 @@ namespace Core.Factory
             var title = _world.GetPool<TitleComponent>().Get(dataEntity).Value;
             view.SetTitle(title);
             
+            var icon = _world.GetPool<IconComponent>().Get(dataEntity).Value;
+            view.SetIcon(icon);
+            
             var levelPrice = _world.GetPool<LevelUpPriceComponent>().Get(dataEntity).Value;
             
             view.LevelUpButtonView.SetupClickAction(()=>AddPoolComponent<BusinessLevelUpRequestComponent>(dataEntity),
